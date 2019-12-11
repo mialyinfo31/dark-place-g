@@ -3,6 +3,7 @@
 namespace dark_place_game
 {
 
+/** My Origin Exeption class**/
     [System.Serializable]
     /// Une Exeption Custom
     public class NotEnoughtSpaceInCurrencyHolderExeption : System.Exception {
@@ -10,8 +11,6 @@ namespace dark_place_game
         { }
      }
     
-    [System.Serializable]
-    // My own Exception Class 
     public class WithdrawMoreThanCurrentAmountInCurrencyHolderThrowExeption : System.Exception
     {
         // Exception 's constructor
@@ -19,6 +18,16 @@ namespace dark_place_game
         { }
     }
 
+    public class CurencyHolderNameTooLongException : System.Exception
+    {
+        // Exception 's constructor
+        public CurencyHolderNameTooLongException( String msg): base( msg) 
+        { }
+    }
+
+    public class ZeroArgException : System.Exception{}
+
+/** End of My Origin Exeption class**/
     public class CurrencyHolder
     {
         public static readonly string CURRENCY_DEFAULT_NAME = "Unnamed";
@@ -62,10 +71,11 @@ namespace dark_place_game
 
         public CurrencyHolder(string name, int capacity, int amount)
         {   
-            if (( amount<0) || (name == "") || (name == null) || (name.Length<4)) 
+            if (amount<0 || amount> capacity|| String.Equals(name,null) || String.Equals(name,"") || (name.Length <4 || name.Length >11) )
             {
                 throw new System.ArgumentException();
             }
+            
                      
                 Capacity = capacity;
                 CurrencyName = name;
@@ -85,7 +95,7 @@ namespace dark_place_game
 
         public void Store(int amount)
         {
-           if( Capacity <CurrentAmount+amount){
+           if( Capacity <CurrentAmount+amount || amount<0 || amount == 0 ){
                throw new System.ArgumentException("Erreur d'argument");
                // checked in test line 102
            }  
@@ -94,7 +104,7 @@ namespace dark_place_game
 
         public void Withdraw(int amount)
         {
-            if (amount <0)
+            if (amount <0 || amount ==0)
             {
                 throw new WithdrawMoreThanCurrentAmountInCurrencyHolderThrowExeption("Unknown value");
             }

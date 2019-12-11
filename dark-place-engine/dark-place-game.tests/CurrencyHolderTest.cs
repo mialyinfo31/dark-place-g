@@ -107,7 +107,6 @@ namespace dark_place_game.tests
                 ch.Store(10);
             };
             Assert.Throws<ArgumentException>(mauvaisAppel);
-
         }
 
         [Fact]
@@ -123,9 +122,45 @@ namespace dark_place_game.tests
         {
             // A vous d'�crire un test qui v�rifie que retirer (methode withdraw) une quantit� negative de currency leve une exeption CantWithDrawNegativeCurrencyAmountExeption.
             // Astuce : dans ce cas pr�vu avant m�me de pouvoir compiler le test, vous allez �tre oblig� de cr�er la classe CantWithDrawMoreThanCurrentAmountExeption (vous pouvez la mettre dans le meme fichier que CurrencyHolder)
-            Action checkWithdrawCurrentAmount = () => new CurrencyHolder(EXEMPLE_NOM_MONNAIE_VALIDE, EXEMPLE_CAPACITE_VALIDE, -100);
-            Assert.Throws<ArgumentException>(checkWithdrawCurrentAmount);
+            Action checkWithdrawCurrentAmount = () => {
+                CurrencyHolder ch = new CurrencyHolder(EXEMPLE_NOM_MONNAIE_VALIDE, EXEMPLE_CAPACITE_VALIDE, EXEMPLE_CONTENANCE_INITIALE_VALIDE);
+                ch.Withdraw(-100);
+            };
+            Assert.Throws<WithdrawMoreThanCurrentAmountInCurrencyHolderThrowExeption>(checkWithdrawCurrentAmount);
         }
        
+        // Etape 6       
+        [Fact]
+        public void TestPut12CharOfName()
+        {
+            // Ecrivez un test pour un nom de douze caracteres
+            Action checkCurencyHolderName12char = () => new CurrencyHolder("FranMalagasy", EXEMPLE_CAPACITE_VALIDE, EXEMPLE_CONTENANCE_INITIALE_VALIDE);
+            Assert.Throws<ArgumentException>(checkCurencyHolderName12char);
+        }
+
+        [Fact]
+        public void CheckStore0()
+        {
+            // Ecrivez un test pour un nom de douze caracteres
+            Action CheckStore0 = () => {
+                CurrencyHolder ch = new CurrencyHolder("Franc", EXEMPLE_CAPACITE_VALIDE, EXEMPLE_CONTENANCE_INITIALE_VALIDE);
+                ch.Store(0);
+            };
+            Assert.Throws<ZeroArgException>(CheckStore0);
+        }
+
     }
 }
+/**
+
+On ne peux pas ajouter ou retirer 0 currency (lever expetion) (2 tests)
+Un nom de currency ne doit pas commencer par la lettre a majuscule ou minuscule (2 tests)
+Un CurrencyHolder ne peux avoir une capacité inférieure à 1 (2 tests)
+Faire 2 tests unitaires pertinents pour la methode IsEmpty
+Un CurrencyHolder est plein (IsFull) si son contenu est égal à sa capacité (4 test, y a pas de piege)
+
+Etape 7
+Corrigez le code de CurrencyHolder jusqu'a faire passer vos tests. (en cas de doute sur vos tests
+demandez à vérifier qu'ils soient valides)
+Etape
+**/
