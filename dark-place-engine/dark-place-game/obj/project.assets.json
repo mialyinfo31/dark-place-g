@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Mia Info\\Documents\\TEST_UNITAIRE\\TP_DarkPlace\\dark-place-engine\\dark-place-game\\dark-place-game.csproj",
+      "projectUniqueName": "c:\\Users\\Mia Info\\Documents\\TEST_UNITAIRE\\TP_DarkPlace\\dark-place-engine\\dark-place-game\\dark-place-game.csproj",
       "projectName": "dark-place-game",
-      "projectPath": "C:\\Users\\Mia Info\\Documents\\TEST_UNITAIRE\\TP_DarkPlace\\dark-place-engine\\dark-place-game\\dark-place-game.csproj",
+      "projectPath": "c:\\Users\\Mia Info\\Documents\\TEST_UNITAIRE\\TP_DarkPlace\\dark-place-engine\\dark-place-game\\dark-place-game.csproj",
       "packagesPath": "C:\\Users\\Mia Info\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Mia Info\\Documents\\TEST_UNITAIRE\\TP_DarkPlace\\dark-place-engine\\dark-place-game\\obj\\",
+      "outputPath": "c:\\Users\\Mia Info\\Documents\\TEST_UNITAIRE\\TP_DarkPlace\\dark-place-engine\\dark-place-game\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

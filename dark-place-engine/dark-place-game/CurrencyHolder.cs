@@ -5,7 +5,19 @@ namespace dark_place_game
 
     [System.Serializable]
     /// Une Exeption Custom
-    public class NotEnoughtSpaceInCurrencyHolderExeption : System.Exception { }
+    public class NotEnoughtSpaceInCurrencyHolderExeption : System.Exception {
+        public NotEnoughtSpaceInCurrencyHolderExeption( String msg ):  base( msg) 
+        { }
+     }
+    
+    [System.Serializable]
+    // My own Exception Class 
+    public class WithdrawMoreThanCurrentAmountInCurrencyHolderThrowExeption : System.Exception
+    {
+        // Exception 's constructor
+        public WithdrawMoreThanCurrentAmountInCurrencyHolderThrowExeption( String msg): base( msg) 
+        { }
+    }
 
     public class CurrencyHolder
     {
@@ -20,6 +32,7 @@ namespace dark_place_game
                 currencyName = value;
             }
         }
+
         // Le champs interne de la property
         private string currencyName = CURRENCY_DEFAULT_NAME;
 
@@ -48,10 +61,16 @@ namespace dark_place_game
         private int capacity = 0;
 
         public CurrencyHolder(string name, int capacity, int amount)
-        {
-            Capacity = capacity;
-            CurrencyName = name;
-            CurrentAmount = amount;
+        {   
+            if (( amount<0) || (name == "") || (name == null) || (name.Length<4)) 
+            {
+                throw new System.ArgumentException();
+            }
+                     
+                Capacity = capacity;
+                CurrencyName = name;
+                CurrentAmount = amount;
+            
         }
 
         public bool IsEmpty()
@@ -66,12 +85,25 @@ namespace dark_place_game
 
         public void Store(int amount)
         {
-
+           if( Capacity <CurrentAmount+amount){
+               throw new System.ArgumentException("Erreur d'argument");
+               // checked in test line 102
+           }  
+           this.currentAmount += amount;
         }
 
         public void Withdraw(int amount)
         {
-
+            if (amount <0)
+            {
+                throw new WithdrawMoreThanCurrentAmountInCurrencyHolderThrowExeption("Unknown value");
+            }
+            else
+            {
+                this.currentAmount -= amount;
+            }
         }
+    
     }
 }
+
