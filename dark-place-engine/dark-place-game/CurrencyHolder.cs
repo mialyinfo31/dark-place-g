@@ -25,8 +25,23 @@ namespace dark_place_game
         { }
     }
 
-    public class ZeroArgException : System.Exception{}
+    public class ZeroStroreArgException : System.ArgumentException
+    {
+        public ZeroStroreArgException( String msg): base( msg) 
+        { }
+    }
 
+       public class ZeroWithdraweArgException : System.ArgumentException
+    {
+        public ZeroWithdraweArgException( String msg): base( msg) 
+        { }
+    }
+
+    public class NotEnoughtCapacityException : System.ArgumentException
+    {
+        public NotEnoughtCapacityException( String msg): base( msg) 
+        { }
+    }
 /** End of My Origin Exeption class**/
     public class CurrencyHolder
     {
@@ -75,8 +90,15 @@ namespace dark_place_game
             {
                 throw new System.ArgumentException();
             }
+            if( name.StartsWith("a") || name.StartsWith("A"))
+            {
+                throw new System.ArgumentException();
+            }
+            if(capacity<1)
+            {
+                throw new NotEnoughtCapacityException("Pas assez de capacité");
+            }
             
-                     
                 Capacity = capacity;
                 CurrencyName = name;
                 CurrentAmount = amount;
@@ -89,29 +111,40 @@ namespace dark_place_game
         }
 
         public bool IsFull()
-        {
+        {   
+            if(this.Capacity<this.CurrentAmount || this.Capacity == this.CurrentAmount){
+                throw new System.ArgumentException();
+            }
             return true;
         }
 
         public void Store(int amount)
         {
-           if( Capacity <CurrentAmount+amount || amount<0 || amount == 0 ){
+           if( Capacity <CurrentAmount+amount || amount<0){
                throw new System.ArgumentException("Erreur d'argument");
                // checked in test line 102
            }  
+           if( amount == 0 ){
+               throw new ZeroStroreArgException("Erreur de type 0 param");
+           }
+           if( amount < 0 ){
+               throw new System.ArgumentException("Erreur de type parametre negative");
+           }
            this.currentAmount += amount;
         }
 
         public void Withdraw(int amount)
         {
-            if (amount <0 || amount ==0)
+            if (amount <0 )
             {
                 throw new WithdrawMoreThanCurrentAmountInCurrencyHolderThrowExeption("Unknown value");
             }
-            else
-            {
-                this.currentAmount -= amount;
+            if( amount == 0 ){
+               throw new ZeroWithdraweArgException("Erreur de type 0 param");
             }
+            
+                this.currentAmount -= amount;
+            
         }
     
     }

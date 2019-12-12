@@ -141,26 +141,112 @@ namespace dark_place_game.tests
         [Fact]
         public void CheckStore0()
         {
-            // Ecrivez un test pour un nom de douze caracteres
+            //  Ecrivez un test pour la methode Store(0)
             Action CheckStore0 = () => {
-                CurrencyHolder ch = new CurrencyHolder("Franc", EXEMPLE_CAPACITE_VALIDE, EXEMPLE_CONTENANCE_INITIALE_VALIDE);
+                CurrencyHolder ch = new CurrencyHolder(EXEMPLE_NOM_MONNAIE_VALIDE, EXEMPLE_CAPACITE_VALIDE, EXEMPLE_CONTENANCE_INITIALE_VALIDE);
                 ch.Store(0);
             };
-            Assert.Throws<ZeroArgException>(CheckStore0);
+            Assert.Throws<ZeroStroreArgException>(CheckStore0);
         }
+
+        [Fact]
+        public void CheckWithdraw0()
+        {
+            // Ecrivez un test pour la methode Withdraw(0)
+            Action CheckWithDraw0 = () => {
+                CurrencyHolder ch = new CurrencyHolder(EXEMPLE_NOM_MONNAIE_VALIDE, EXEMPLE_CAPACITE_VALIDE, EXEMPLE_CONTENANCE_INITIALE_VALIDE);
+               ch.Withdraw(0);
+            };
+            Assert.Throws<ZeroWithdraweArgException>(CheckWithDraw0);
+        }
+
+        [Fact]
+        public void CheckStartWithA()
+        {
+            // Un nom de currency ne doit pas commencer par la lettre a majuscule ou minuscule
+            Action CheckStartWithA = () => {
+                CurrencyHolder ch = new CurrencyHolder("Alibaba", EXEMPLE_CAPACITE_VALIDE, EXEMPLE_CONTENANCE_INITIALE_VALIDE);
+            };
+            Assert.Throws<ArgumentException>(CheckStartWithA);
+        }
+
+        [Fact]
+        public void CheckStartWith_a()
+        {
+            // Un nom de currency ne doit pas commencer par la lettre a majuscule ou minuscule
+            Action CheckStartWith_a = () => {
+                CurrencyHolder ch = new CurrencyHolder("adidas", EXEMPLE_CAPACITE_VALIDE, EXEMPLE_CONTENANCE_INITIALE_VALIDE);
+            };
+            Assert.Throws<ArgumentException>(CheckStartWith_a);
+        }
+
+        [Fact]
+        public void CheckCapacityValue1()
+        {
+            //Un CurrencyHolder ne peux avoir une capacité inférieure à 1 (1er test)
+            Action CheckCapacityValue1 = () => {
+                CurrencyHolder ch = new CurrencyHolder(EXEMPLE_NOM_MONNAIE_VALIDE, 0,EXEMPLE_CONTENANCE_INITIALE_VALIDE);
+            };
+            Assert.Throws<ArgumentException>(CheckCapacityValue1);
+        }
+
+        [Fact]
+        public void CheckCapacityValue2()
+        {
+            //Un CurrencyHolder ne peux avoir une capacité inférieure à 1 (2 test)
+            Action CheckCapacityValue2 = () => {
+                CurrencyHolder ch = new CurrencyHolder(EXEMPLE_NOM_MONNAIE_VALIDE, -3,EXEMPLE_CONTENANCE_INITIALE_VALIDE);
+            };
+            Assert.Throws<ArgumentException>(CheckCapacityValue2);
+        }
+
+        [Fact]
+        public void TestIsFull1()
+        {
+            //Faire 2 tests unitaires pertinents pour la methode IsEmpty (Test N°1)
+            CurrencyHolder myCurrencyHolder = new CurrencyHolder(EXEMPLE_NOM_MONNAIE_VALIDE,978, 978 );
+            var result = myCurrencyHolder.Capacity == myCurrencyHolder.CurrentAmount;
+            Assert.True(result);
+        }
+
+        [Fact]
+        public void TestIsFull2()
+        {
+            //Faire 2 tests unitaires pertinents pour la methode IsEmpty (Test N°2)
+            Action TestIsFull2 = () => {
+                CurrencyHolder ch = new CurrencyHolder(EXEMPLE_NOM_MONNAIE_VALIDE, 978,1000);
+            };
+            Assert.Throws<ArgumentException>(TestIsFull2);
+        }
+
+        [Fact]
+        //Un CurrencyHolder est plein (IsFull) si son contenu est égal à sa capacité 
+        public void TestIsFull3()
+        {
+            //Faire 2 tests unitaires pertinents pour la methode IsEmpty (Test N°1)
+            CurrencyHolder myCurrencyHolder = new CurrencyHolder(EXEMPLE_NOM_MONNAIE_VALIDE,1000,1000 );
+            var result = myCurrencyHolder.Capacity == myCurrencyHolder.CurrentAmount;
+            Assert.True(result);
+        }
+
+        [Fact]
+        //Un CurrencyHolder est plein (IsFull) si son contenu est égal à sa capacité (4 test, y a pas de piege)
+        public void TestIsFull4()
+        {
+            //Faire 2 tests unitaires pertinents pour la methode IsEmpty 
+            CurrencyHolder myCurrencyHolder = new CurrencyHolder(EXEMPLE_NOM_MONNAIE_VALIDE,500,500 );
+            var result = myCurrencyHolder.Capacity == myCurrencyHolder.CurrentAmount;
+            Assert.True(result);
+        }
+
+
+        
 
     }
 }
-/**
 
-On ne peux pas ajouter ou retirer 0 currency (lever expetion) (2 tests)
-Un nom de currency ne doit pas commencer par la lettre a majuscule ou minuscule (2 tests)
-Un CurrencyHolder ne peux avoir une capacité inférieure à 1 (2 tests)
-Faire 2 tests unitaires pertinents pour la methode IsEmpty
-Un CurrencyHolder est plein (IsFull) si son contenu est égal à sa capacité (4 test, y a pas de piege)
 
-Etape 7
+
+/**Etape 7
 Corrigez le code de CurrencyHolder jusqu'a faire passer vos tests. (en cas de doute sur vos tests
-demandez à vérifier qu'ils soient valides)
-Etape
-**/
+demandez à vérifier qu'ils soient valides)**/
