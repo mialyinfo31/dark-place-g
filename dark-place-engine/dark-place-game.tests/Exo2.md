@@ -41,3 +41,4 @@ Identifiez les obstacles à l'automatisation de ces tests (ils peuvent être con
 Décriver le concepts des Mocks, des Fakes et de stubs.
 
 Définissez la différence entre un test d'acceptation et un test unitaire.
+La différence est que tout est fait en mémoire
